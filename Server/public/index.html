@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <title>Socket.IO Color selector</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; padding: 10px; }
+      .palette{width:100px;height:100px;}
+    </style>
+  </head>
+  
+  <body>
+    R: <input type="range" min="0" " max="255" value=0 data-id="r" class="slider">
+    <br>
+    G: <input type="range" min="0" " max="255" value=0 data-id="g" class="slider">
+    <br>
+    B: <input type="range" min="0" " max="255" value=0 data-id="b" class="slider">
+    <br>
+    <br>
+    <div class="palette"></div>
+    <script src="js/socket.io-1.2.0.js"></script>
+    <script src="js/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      
+      var _r = 0, _g = 0, _b = 0;
+      
+      var changeRGB = function(){
+        
+        var color = {
+          r: _r,
+          g: _g,
+          b: _b
+        };
+        console.log(color);
+        socket.emit('rgb', color);  
+      };
+      
+      $("input[type=range]").on('change mousemove',function(){
+        var theId = $(this).data('id');
+        window["_" + theId] = $(this).val();
+        changeRGB();
+      });
+      
+      
+      socket.on('rgb', function(msg){
+        $(".palette").css('backgroundColor', 
+          'rgb('+ msg.r + ',' + msg.g + ',' + msg.b + ')'); 
+      });
+    </script>
+  </body>
+
+</html>

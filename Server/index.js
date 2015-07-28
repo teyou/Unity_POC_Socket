@@ -8,7 +8,7 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 //static
 app.use(express.static(__dirname + '/public'));
@@ -20,7 +20,7 @@ app.get('/',function(req,res){
 
 io.on('connection', function(socket){
 
-  socket.broadcast.emit('hi');
+  //socket.broadcast.emit('hi');
   
   //Color
   socket.on('rgb', function(msg){

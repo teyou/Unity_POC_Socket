@@ -27,16 +27,26 @@
       var socket = io();      
       var _r = 0, _g = 0, _b = 0;
       
+      var syncInputVal = function(msg){
+        
+        $.each(msg,function(key,value){          
+          window["_" + key] = value;
+          $("input[data-id='"+key+"']").val(value);
+          //console.log(key,value);
+        });
+        
+      }
+      
       socket.on('rgb', function(msg){
-        $(".palette").css('backgroundColor', 
-          'rgb('+ msg.r + ',' + msg.g + ',' + msg.b + ')'); 
+        $(".palette").css('backgroundColor', 'rgb('+ msg.r + ',' + msg.g + ',' + msg.b + ')');
+        syncInputVal(msg); 
       });
       
       $(function(){
         
         var changeRGB = function(){  
           var color = { r: _r, g: _g, b: _b};
-          console.log(color);
+          //console.log(color);
           socket.emit('rgb', color);  
         };
       

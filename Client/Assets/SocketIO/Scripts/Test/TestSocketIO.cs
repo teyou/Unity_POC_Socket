@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System;
-
 using System.Collections;
+using System;
 using UnityEngine;
 using SocketIO;
 using UnityEngine.UI;
@@ -25,7 +24,17 @@ public class TestSocketIO : MonoBehaviour
 
 	public void Update(){
 		if (Input.GetMouseButtonDown (0)) {
-			_bgColor = Color.green;
+
+
+			Color rndColor = new Color(UnityEngine.Random.value,UnityEngine.Random.value,UnityEngine.Random.value);
+
+			Dictionary<string,string> json = new Dictionary<string, string>();
+			json.Add("r",((int)(rndColor.r * 255)).ToString());
+			json.Add("g",((int)(rndColor.g * 255)).ToString());
+			json.Add("b",((int)(rndColor.b * 255)).ToString());
+
+			socket.Emit("rgb",new JSONObject(json));
+			_bgColor = rndColor;
 		}
 
 		Camera.main.backgroundColor = _bgColor;

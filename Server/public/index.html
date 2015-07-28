@@ -50,7 +50,7 @@
           socket.emit('rgb', color);  
         };
       
-        $("input[type=range]").on('change mousemove',function(){
+        $("input[type=range]").on('change',function(){
           var theId = $(this).data('id');
           window["_" + theId] = $(this).val();
           changeRGB();

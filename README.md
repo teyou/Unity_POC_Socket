@@ -1,4 +1,4 @@
-# Unity_POC_Socket
+# Unity with Socket.IO Interaction
 POC using web Socket to interact with Unity APP
 
 
@@ -11,5 +11,5 @@ POC using web Socket to interact with Unity APP
 
 /Client/
 
-This contains Unity3D code for showing the result (aka color), the color is can change in realtime via index.html
+This contains Unity3D code for showing the result (aka color), the user can change the color in realtime via index.html
 
